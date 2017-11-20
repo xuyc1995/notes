@@ -206,4 +206,104 @@ CREATE TABLE Persons
 撤销UNIQUE
     DROP INDEX uc_PersonID
 ```
+## PRIMARY KEY
++ 约束唯一标识数据库表中的每条记录
++ 主键必须包含唯一的值
++ 主键列不能包含NULL的值
++ 每一个表都应该有一个主键，并且有且只能有一个
+## FOREIGN KEY（外键）
++ 一个表中的FOREIGN KEY指向另一个表中的PRIMARY KEY
++ 用于预防破坏表之间连接的动作
++ 能防止非法数据插入外键列，因为它必须是它只想的那个表中的值之一
+## CHECK
++ 用于限制列中的值的范围
+## DEFAULT
++ 用于向列中插入默认值
+```
+CREATE TABLE Persons
+(
+    Id_P int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Address varchar(255),
+    City varchar(255) DEFAULT 'Sandnes'
+)
+```
+## CREATE INDEX 创建索引
++ 用户无法看到索引，只能被用来加速搜索/查询
+```
+CREATE （UNIQUE）INDEX index_name ---唯一与不唯一的区别
+ON table_name (column_name)
+```
+## 撤销索引、表以及数据库
++ DROP INDEX---删除表格中的索引
+```
+ALTER TABLE table_name DROP INDEX index_name
+```
++ DROP TABLE---删除表（表的结构、属性以及索引也会被删除）
+```
+DROP TABLE 表名称
+```
++ TRUNCATE TABLE---删除表内数据，但是不删除表本身
+```
+TRUNCATE TABLE 表名称
+```
++ DROP TABLE---删除数据库
+```
+DROP DATABASE 数据库名称
+```
+## ALTER TABLE 
++ 在已有的表中添加、修改删除列
+```
+ALTER TABLE table_name
+ADD/DROP/ALTER column_name datatype//datatype
+```
+## AUTO INCREMENT
++ 在新纪录插入表中时生成一个唯一的数字
++ ALTER TABLE Persons AUTO_INCREMENT=100---让 AUTO_INCREMENT 序列以其他的值起始
++ 使用IDENTITY来执行auto-increment任务
+## VIEW
+＋　视图使基于SQL语句的结果集的可视化的表
+＋　视图包含行和列，就像一个真实的表。视图中的表来意一个或多个数据库中的真实的表中的字段
+```
+CREATE VIEW view_name AS
+SELECT column_name
+FROM table_name
+WHERE condition
+ex:
+CREATE VIEW [Current Product List] AS
+SELECT ProductID,ProductName
+FROM Products
+WHERE Discontinued=No
+```
+## 日期 
++ NOW()---当前的日期时间
++ CURDATE()---当前的日期
++ CURTIME()---当前的时间
++ DATE()---提取日期或之间/时间表达式的日期部分
++ EXTRACT()---返回日期/时间按的单独部分
++ DATE_ADD()---给日期添加指定的时间间隔
++ DATE_SUB()---给日期减去指定的时间间隔
++ DATEDIFF()---返回两个日期之间的天数
++ DATE_FORMAT()---用不同的格式显示日期/时间
+##时间形式
++ DATE---YYYY-MM-DD
++ DATETIME---YYYY-MM-DD HH：MM：SS
++ TIMESTAMP---YYYY-MM-DD HH：MM：SS
++ YEAR---YYYY/YY
+## NULL值的处理
++ 使用IS NULL 和IS NOT NULL操作符
+```
+SELECT LastName,FirstName,Address FROM Persons
+WHERE Address IS NULL
+```
+## IFNULL()/COALESCE()
+```
+SELECT ProductName,UnitPrice*(UnitsInStock+IFNULL(UnitsOnOrder,0))---若值为NULL则返回0
+FROM Products
+```
+## MYSQL三种主要类型：文本、数字和日期/时间类型
+<img src='./10.png'>
+<img src='./20.png'>
+<img src='./30.png'>
 ## 
